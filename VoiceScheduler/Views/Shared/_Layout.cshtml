@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @*<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>*@
+
+
+</head>
+<body>
+    <header>
+        <h1> Mój Kalendarz </h1>
+        <nav role='navigation'>
+            
+        </nav>
+        
+        <div id="speechCheck"  style="float:right; margin-right:15px; color:red; margin-top:15px; display:none"><span class="glyphicon glyphicon-record"> Tryb rozpoznawania mowy jest wlączony</span></div>
+</header>
+ 
+    <div class="wrapper">
+
+        
+        <div id="sidebar-wrapper">
+            <nav id="sidebar" style="margin-top:116px; margin-left:65px">
+                <div class="sidebar-header">
+                    
+                </div>
+
+                <ul class="list-unstyled components">
+                    
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><h3>Home</h3></a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                <a href="#"></a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><h3>About</h3></a>
+                    </li>
+                   
+                    <li>
+                        <a href="#"><h3>Contact</h3></a>
+                    </li>
+                </ul>
+            </nav>
+            <div id='content'>
+                
+                <ul id='events'></ul>
+            </div>
+            <div>
+                <a id="authorize_button" style="display: none;">Authorize</a>
+                <a id="signout_button" style="display: none;">Sign Out</a>
+                <img  id='google-image' src="~/Content/img/google-76659_640.png" alt="GoogleCalendar"/>
+            </div>
+
+            
+            <iframe id="ifmCalendar" class="zoom"
+                    src="https://www.google.com/calendar/embed?src=dhordyko%40gmail.com&ctz=Europe%2FWarsaw;"
+                    scrolling="no" frameborder="1" style="top:306px; position:absolute; left:-65px"></iframe>
+        </div>
+        
+
+   
+               
+               
+            
+
+    
+       
+            @RenderBody()
+            <hr />
+        </div>
+
+   
+ 
+
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

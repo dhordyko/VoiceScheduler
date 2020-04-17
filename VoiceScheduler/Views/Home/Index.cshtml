@@ -1,0 +1,424 @@
+﻿@model VoiceScheduler.Models.Login
+
+@{
+    ViewBag.Title = "Home Page";
+    if (Session["Id"] == null)
+    {
+        @Html.Partial("Login");
+    }
+}
+
+
+<div id="contextMenu" class="dropdown clearfix">
+
+</div>
+
+
+<div id="calendar-wrapper">
+    <div id="loading"></div>
+    <div class="print-visible" id="calendar"></div>
+</div>
+
+
+<!-- ADD EVENT MODAL -->
+
+
+
+<div id="DialogBox2" class="modal-content-td"></div>
+
+@Html.Partial("Instruction");
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="EventHeader">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle" class="glyphicon glyphicon-calendar"></span></h4>
+                <h4 class="modal-title"><span id="allDayTitle"class="glyphicon glyphicon-leaf"></span></h4>
+            </div>
+            <div class="modal-body">
+
+
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnDelete" class="btn btn-default btn-sm" style="margin-right:5px; float:left">
+                    <span class="glyphicon glyphicon-remove">  USUŃ</span>
+                </button>
+                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px; float:left">
+                    <span class="glyphicon glyphicon-pencil">  EDYTUJ</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body" style="padding-right:80px;padding-left:40px">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hdEventId" value="0" />
+
+
+                    <div class="form-group">
+                        <label>Tytuł</label>
+                        <div class="input-group text-capitalize">
+                            <input type="text" id="txtSubject" class="form-control"  style="font-family:Arial, FontAwesome !important"  required />
+                            <span class="input-group-addon">
+                                <button type="button" id="subject_instruction" class="glyphicon glyphicon-th"></button><button class="glyphicon  glyphicon-pencil" id="start_instruction"></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Początek</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtStart" class="form-control" style="font-family:Arial, FontAwesome !important" required />
+                            <span class="input-group-addon" id="start_date"  data-toggle="popover" data-content="Musisz słownie podacz datę i czas w formacie:'10 Marca 12:30'" >
+                                <button class="glyphicon glyphicon-calendar glyphicon-time" ></button><button class="glyphicon  glyphicon-time" id="start_instruction" ></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="divEndDate">
+                        <label>Koniec</label>
+                        <div class="input-group date" id="dtp2">
+                            <input type="text" id="txtEnd" class="form-control" style="font-family:Arial, FontAwesome !important" />
+                            <span class="input-group-addon" id="end_date"  data-toggle="popover" data-content="Musisz słownie podacz datę i czas w formacie:'10 Marca 12:30'">
+                                <button class="glyphicon glyphicon-calendar"></button><button data-toggle="popover" data-content="Musisz słownie podacz datę i czas w formacie:'10 Marca 12:30'" class="glyphicon  glyphicon-time" id="end_instruction"></button>
+                            </span>
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lokacja</label>
+                        <div class="input-group date" id="dtp2">
+                            <style>
+                                .pac-container {
+                                    z-index: 10000 !important;
+                                }
+                            </style>
+                            <input type="text" id="address" class="form-control" style="font-family:Arial, FontAwesome !important" />
+                            <span class="input-group-addon">
+                                <button class="glyphicon  glyphicon-map-marker" id="end_instruction"></button><button class="glyphicon  glyphicon-tree-conifer" id="start_instruction"></button>
+                            </span>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cały dzień</label>
+                        <div class="input-group">
+                            <div id="chkbox" class="custom-control custom-check form-control">
+                                <input type="checkbox" id="isChecked" >
+                                <span class="custom-control-label" for="chbxTerms"></span>
+                                
+                            </div>
+                            <span class="input-group-addon">
+                                <button class="glyphicon glyphicon-ok-circle"></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control custom-select">Kolor wydarzenia</label>
+                        <div class="input-group" >
+                            <select id="ddThemeColor" class="form-control" style="height:48px" >
+                                <option value="">Default</option>
+                                <option value="czerwony">Czerwony</option>
+                                <option value="niebieski">Niebieski</option>
+                                <option value="czarny">Czarny</option>
+                                <option value="zielony">Zielony</option>
+                            </select>
+                        
+                            <span class="input-group-addon" style="" id="color_mark"  data-toggle="popover" data-content="Powiedz słownie kolor:czerwony/niebieski/czarny/zielony ">
+                                <label  style="background: url(../../Content/img/color-circle.png); background-repeat:no-repeat; width:26px; height:27px; background-position:center;background-size:cover"></label>
+                            </span>
+                        </div></div>
+
+                    <div class="form-group" id="divDescription">
+                        <label>Notatka</label>
+                        <textarea id="txtDescription" rows="3" class="form-control" style="font-family:Arial, FontAwesome !important" placeholder='Tutaj zostawisz swoją notatkę.Żeby zapisać wydarzenie powiedz "Zapisz"'></textarea>
+                    </div>
+
+                    <button type="submit" id="btnSave" class="btn btn-success">Zapisz</button>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyBVgHD3E6F94DmDyYQ9svslsLf8d4JoALA&libraries=places" type="text/javascript"></script>
+<script type="text/javascript">
+      // Client ID and API key from the Developer Console
+        var CLIENT_ID = '428566840434-1eejui9dc2t2nve0q5g5ohnp1bot1gj0.apps.googleusercontent.com';
+        var API_KEY = 'AIzaSyA3sXY3NQILhp3eEhItE_hRCfqeFHZDegU';
+
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/calendar";
+
+      var authorizeButton = document.getElementById('authorize_button');
+      var signoutButton = document.getElementById('signout_button');
+     
+    //Login
+      
+    
+
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        }, function(error) {
+          appendPre(JSON.stringify(error, null, 2));
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function (event) {
+          
+          var input = document.getElementById('address');
+          var autocomplete;
+          var options = {
+              
+              types: ['geocode'],
+              strictbounds: true,
+              radius: '2000',
+              componentRestrictions: { country: "pl" }// (cities)
+          };
+
+          autocomplete = new google.maps.places.Autocomplete(input, options);
+
+      })
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'inline';
+         
+          GoogleCalendarPopult();
+         
+        
+              
+      
+          
+        } else {
+          authorizeButton.style.display = 'inline';
+          signoutButton.style.display = 'none';
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       *
+       */
+      function appendPre(message) {
+        var pre = document.getElementById('content');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      function GoogleCalendarPopult() {
+ 
+          $.ajax({
+              type: "GET",
+
+              url: "/home/GetEvents",
+
+
+              success: function (data) {
+
+                  $.each(data, function (i, v) {
+                      var start = "" + moment(v.Start).toISOString()
+                      
+                     var title = "" + v.Subject
+                     var description = "" + v.Description
+                     var end = ""+v.End != null ? moment(v.End).toISOString() : null
+                     var id = "" + v.EventID
+                     var c = "" + v.ThemeColor
+                     var allDay = v.isFullDay
+                     var location = v.Location
+                    
+                    
+                      var date = start.split("T")
+                   
+                    
+
+                     var request
+                     var color = function (color) {
+                         if (c === "czerwony") {
+                             return "" +  11
+                         }
+                         else if (c === "niebieski") {
+                             return "" + 9
+                         }
+                         else if (c === "zielony") {
+                             return "" + 2
+                         }
+                         else if (c === "czarny") {
+                             return "" + 8
+                         }
+                     }
+
+                     if (allDay===true) {
+                         request = gapi.client.calendar.events.insert({
+                             'calendarId': 'primary',
+
+                             'resource': {
+                                 "id": id + "dfjkl234jf",
+                                 "summary": title,
+                                 "location": location,
+                                 "description": description,
+                                 "colorId": color(c),
+                                 "start": {
+                                     "date": date[0]
+                                 },
+                                 "end": {
+                                     "date": date[0]
+                                 }
+                             }
+                         });
+                     }
+
+                     else
+                     {
+                         request = gapi.client.calendar.events.insert({
+                             'calendarId': 'primary',
+
+                             'resource': {
+                                 "id": id + "dfjkl234jf",
+                                 "summary": title,
+                                 "location": location,
+                                 "description": description,
+                                 "colorId": color(c),
+                                 "start": {
+                                     "dateTime": start
+                                 },
+                                 "end": {
+                                     "dateTime": end
+                                 }
+                             }
+                         });
+                     }
+
+                  
+                    
+                      
+                     var request1 = gapi.client.calendar.events.update({
+                         'calendarId': 'primary',
+                         'eventId': id + "dfjkl234jf",
+                         'resource': {
+                             "summary": title,
+                             "location": location,
+                             "description": description,
+                             "colorId": color(c),
+                           
+                          
+                             "start": {
+                                 "dateTime": start
+                             },
+                             "end": {
+                                 "dateTime": end
+                             }
+                         }
+                     });
+                    
+
+                    
+
+                      
+                     request.execute(function (resp) {
+                         if (resp.code === 400) {
+                             console.log(resp)
+                         }
+
+                              if (resp.code === 409) {
+                                  request1.execute(function (resp) {
+                                      
+
+                                  })
+
+                              }
+                          });
+                      
+                     
+                      
+                   
+                  })
+
+              },
+
+              error: function (error) {
+                  alert('faild234');
+              }
+
+          })
+         
+
+      }
+
+ 
+</script>
+
+@*AIzaSyA3sXY3NQILhp3eEhItE_hRCfqeFHZDegU*@
+
+@*lmtff02400iq1dl8ae7i1v7v9g@group.calendar.google.com*@
+
+            
+       

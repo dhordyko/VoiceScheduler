@@ -1,0 +1,274 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Meddon);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300);
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.popover-content{
+    width:280px
+}
+.mycontainer{
+    width:75%;
+    height:650px;
+    float:right;
+    padding-right:40px;
+
+}
+.zoom{
+-webkit-transform: scale(.7); /* Safari and Chrome */ 
+  transform: scale(.7); /* zoom factor - prefix if needed */
+  width: 500px; /* half of iframe width */
+  height: 350px; /* half of iframe height */
+  
+  overflow: hidden; /* remove big-ass scrollbars */
+  
+}
+
+#sidebar-wrapper {
+   
+    position: fixed;
+   
+   width:380px;
+    height: 100%;
+  
+    overflow-y: auto;
+    background: #320e3b;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+
+.container .body-content{
+ width: 100%;
+    position: absolute;
+    padding: 15px;
+margin-left: 250px 
+
+}
+
+
+
+
+/*Header styling*/
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+body, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #00407b!important;
+}
+
+header {
+  width: 100%;
+  height: 85px;
+  box-sizing: border-box;
+  background-color: #320e3b;
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  padding: 0px 0px 0px 30px;
+}
+#Login .modal-dialog{
+    margin-top:180px;
+    border: 1px solid #fdf6ee;
+    border-radius:3px;
+}
+#Login .modal-header{
+background-color: #00407b;
+height:100px;
+}
+
+#Login .modal-header h1{
+color: white;
+  font-family: 'Meddon', cursive;
+  font-size:45px;
+  
+
+}
+#Login label{
+    color:#00407b;
+    font-family: 'Meddon', cursive;
+    font-size:30px;
+
+}
+#Login input{
+  display: block;
+  width:250px;
+  margin-left:auto;
+  margin-right:auto;
+ 
+}
+
+#Login button{
+    height:30px;
+    width:80px;
+
+}
+
+
+header h1 {
+    font-size:31px;
+  padding-top: 16px;
+  float: left;
+  margin: 5px 0px;
+  color: white;
+  font-family: 'Meddon', cursive;
+}
+h3{
+  font-size:26px!important;
+  text-decoration: none;
+
+  margin: 5px 0px;
+  color: white!important;
+  font-family: 'Meddon', cursive!important;
+
+
+
+}
+
+#signout_button, #authorize_button {
+display: inline; /* the default for span */
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  color: white!important;
+  font-size:16px!important;
+  margin-left:10px;
+  font-family: 'Meddon', cursive!important;
+    
+}
+#google-image{
+display: inline-block;
+height: 100px;
+padding-left: 22px;
+}
+
+header nav ul {
+  
+  float: right;
+  margin-top: 5px;
+  margin-right: 15px;
+}
+
+.link-2 {
+
+padding-right: 50px;
+}
+header nav ul li {
+
+  display: inline-block;
+}
+
+header nav ul li a {
+ 
+  display: block;
+  padding: 17px 55px;
+  color: white;
+  font-size: 2.2em;
+  text-decoration: none;
+ 
+  border-bottom: 3px solid #373948;
+  -webkit-transition: color 1s ease;
+  -moz-transition: color 1s ease;
+  -o-transition: color 1s ease;
+  transition: color 1s ease;
+}
+
+header nav ul li a:hover{
+  color: #373948;
+}
+
+header nav ul li a.active{
+
+  border-bottom: none;
+}
+
+header nav ul li a.link-1 { background-color: #7f96ff; }
+header nav ul li a.link-2 { background-color: #e56399; }
+
+
+
+.popover-content {
+    padding: 9px 14px;
+    width: 200px;
+}
+
+/*SideBar Styling*/
+
+
+.modal-body{
+     background-image:url("img/map-2450477_1280.jpg");
+     background-repeat: no-repeat, repeat;
+     background-position:center;
+     background-size:cover;
+
+}
+
+/*Calendar Styling*/
+#calendar-wrapper {
+     background-image:url("img/map-2450477_1280.jpg");
+     background-repeat: no-repeat, repeat;
+     background-position:center;
+     background-size:cover;
+    
+margin-top:113px;
+ border-radius:10px;
+  padding: 30px;
+
+  box-shadow: 0 0 5px rgba(0,0,0,1);
+  transform: translate3d(0,0,0);
+  transition: all .3s;
+  width:930px;
+  margin-left:410px;
+  float:right;
+  margin-right:20px;
+  position:fixed;
+  margin-bottom:50px;
+  
+  }
+
+
+
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+   font-size:small;
+   font-weight:700;
+   color:#320e3b
+}
+.fc-day-grid {
+   
+   
+ 
+}
+
+#isChecked{
+    width: 17px;
+    height: 17px;
+
+}
+.glyphicon-ok-circle{
+    font-size:17px
+}
+.flash-marker{
+ border-color:red !important; 
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px red !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px red !important;  
+}
+.fontAwesome {
+  font-family: Helvetica, 'FontAwesome', sans-serif;
+}
